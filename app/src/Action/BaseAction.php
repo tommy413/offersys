@@ -3,8 +3,11 @@ namespace App\Action;
 
 use Interop\Container\ContainerInterface;
 
+error_reporting(0);
+
 class BaseAction
 {
+    
     public function __construct(ContainerInterface $container)
     {
         session_start();

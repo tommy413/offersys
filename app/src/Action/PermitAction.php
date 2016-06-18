@@ -3,6 +3,8 @@ namespace App\Action;
 
 use Interop\Container\ContainerInterface;
 
+error_reporting(0);
+
 session_start();
 
 class PermitAction extends BaseAction
