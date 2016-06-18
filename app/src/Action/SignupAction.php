@@ -29,7 +29,6 @@ final class SignupAction extends BaseAction
         $inserting_id=0;
         if ($max_team_id >= 0)$inserting_id=$max_team_id+1;
 
-        $this->logger->info("$max_team_id , $inserting_id");
         $signupquery = $this->sql['default']->prepare("INSERT INTO team(TeamNUM , TeamName , TeamAccount , TeamPassword , Admin) VALUES ($inserting_id , '$team' , '$account' , '$passhash' , 0)");
         $signupquery->execute();
         
