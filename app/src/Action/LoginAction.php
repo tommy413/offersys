@@ -23,13 +23,13 @@ final class LoginAction extends BaseAction
         
         $error = null;
 
-        $pdb = $this->sql['default']->query("SELECT Passhash FROM employee WHERE Name='".$account."'");
+        $pdb = $this->sql['default']->query("SELECT TeamPassword FROM team WHERE TeamAccount='".$account."'");
         $ph = $pdb->fetch(\PDO::FETCH_ASSOC);
         if ($ph==false){
             $error="The account doesn't exist.";
         }
         else {
-            $passhash=$ph['Passhash'];
+            $passhash=$ph['TeamPassword'];
         }
         /**
         
