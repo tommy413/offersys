@@ -24,7 +24,7 @@ return [
         // sql settings
         'sql' => [
             'default' => [
-                'dsn' => 'mysql:host=localhost;dbname=db_project',
+                'dsn' => 'mysql:host=localhost;dbname=imcamp2016rpg',
                 'username' => 'root',
                 'password' => '',
             ],
