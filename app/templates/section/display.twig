@@ -7,15 +7,15 @@
                     <tr>
                         <th>Teamname</th>
                         <th>Money</th>
-                        <th>Produtivity</th>
+                        <th>Productivity</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for record in records %}
+                    {% for record in teamstatus %}
                         <tr>
-                            <td>{{ record.teamname }}</td>
-                            <td>{{ record.money }}</td>
-                            <td>{{ record.produtivity }}</td>
+                            <td>{{ record.TeamName }}</td>
+                            <td>{{ record.MoneyCount }}</td>
+                            <td>{{ record.Productivity }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -10,93 +10,20 @@ final class HomeAction extends PermitAction
     public function dispatch(Request $request, Response $response, $args)
     {
         
-        $equery = $this->sql['default']->query("SELECT * FROM employee ");
-        $earr = $equery -> fetchAll(\PDO::FETCH_ASSOC);
-        if ($earr == false)$earr=[];
-
-        $oquery = $this->sql['default']->query("SELECT * FROM office ");
-        $oarr = $oquery -> fetchAll(\PDO::FETCH_ASSOC);
-        if ($oarr == false)$olist = [];
-        foreach ($oarr as $key => $value) {
-            $key=$value['OfficeNUM'];
-            $olist[$key]=$value['Name'];
-        }
-        
-        $gquery = $this->sql['default']->query("SELECT * FROM groupdata ");
-        $garr = $gquery -> fetchAll(\PDO::FETCH_ASSOC);
-        if ($garr == false)$glist=[];
-        foreach ($garr as $key => $value) {
-            $key=$value['GroupNUM'];
-            $glist[$key]=$value['GroupName'];
-        }
-
-        $orgquery = $this->sql['default']->query("SELECT * FROM office_organization ");
-        $orgarr = $orgquery -> fetchAll(\PDO::FETCH_ASSOC);
-        if ($orgarr == false)$orglist=[];
-        foreach ($orgarr as $key => $value) {
-            $key=$olist[$value['OfficeNUM']];
-            $orglist[$key][]=$glist[$value['GroupNUM']];
-        }
-
-        $squery = $this->sql['default']->query("SELECT StateNUM,StateName FROM state ");
-        $sarr = $squery -> fetchAll(\PDO::FETCH_ASSOC);
-        if ($sarr == false)$slist=[];
-        foreach ($sarr as $key => $value) {
-            $slist[$key]=$value['StateName'];
-        }
-
-        $pquery = $this->sql['default']->query("SELECT * FROM punchlist ");
-        $parr = $pquery -> fetchALL(\PDO::FETCH_ASSOC);
-        if ($parr == false)$parr=[];
-
-        foreach ($parr as $key => $value) { 
-            $date[$key] = $value['Time']; 
-            $num[$key] = $value['ItemNUM'];
-        }
-        array_multisort($date,SORT_REGULAR,$num,SORT_REGULAR,$parr,SORT_REGULAR);
-
-        $rec = [];
-        $i=0;
-        foreach ($earr as $key => $value) {
-            $rec[$i]['account']=$value['Name'];
-            $enum[$i]=$value['EmployeeNUM'];
-            $i=$i+1;
-        }
-
-        $j=0;
-        while ( $j < $i ) {
-            foreach ($parr as $key => $value) {
-                if ($enum[$j]==$value['EmployeeNUM']){
-                    $rec[$j]['state']=$value['StateNUM'];
-                    $rec[$j]['updated']=date("Y/m/d H:i:s", strtotime($value['Time']));
-                    $rec[$j]['note']=$value['Note'];
-                }
-            }
-            $j=$j+1;
-        }
-
-        foreach ($rec as $key => $value) {
-            foreach ($sarr as $skey => $svalue) {
-                if ($value['state']==$svalue['StateNUM']) {
-                    $rec[$key]['state'] = $svalue['StateName'];
-                }
-            }
-        }
-        
         $account = $this->account;
-        $is_admin = false;
-        foreach ($earr as $key => $value) {
-            if ($value['Name']==$account && $value['Admin']>0 )$is_admin=true;
-        }
-
+        $teamquery = $this->sql['default']->query("SELECT TeamName , MoneyCount , Productivity FROM team Order by MoneyCount DESC ");
+        if (!$teamquery)$teamarr=[];
+        else $teamarr = $teamquery -> fetchAll(\PDO::FETCH_ASSOC);
         
+        $adminquery = $this->sql['default']->query("SELECT Admin FROM team WHERE TeamAccount = '$account' ");
+        $adminarr = $adminquery -> fetchAll(\PDO::FETCH_ASSOC);
+        if (!$adminarr)$is_admin=0;
+        else $is_admin=$adminarr['Admin'];
 
         $params = [
             'admin' => $is_admin,
-            'account' => $account,
-            'orginization' => $orglist,
-            'state_list' => $slist,
-            'records' => $rec,
+            'teamstatus' => $teamarr,
+            
         ];
 
         
