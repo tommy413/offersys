@@ -5,31 +5,31 @@
         {# Navigation #}
         {% include 'section/navigation.twig' %}
         
+        
         {% if admin %}
             {# Admin Section #}
             {% include 'section/admin.twig' %}
-            {# Update Modal #}
-            {% include 'modal/user.twig' %}
+            {# Update Team Data #}
+            {% include 'modal/team.twig' %}
         {% else %}
-            {# Intro Section #}
-            {% include 'section/punch.twig' %}        
-            {# Punch Modal #}
-            {% include 'modal/punch.twig' %}
+            {# Pricelist #}
+            {% include 'section/list.twig' %}
+            {# Work #}
+            {% include 'section/work.twig' %}
+
+
         {% endif %}
 
-        {# List Section #}
-        {% include 'section/list.twig' %}
-        {# Exoport Section #}
-        {% include 'section/export.twig' %}
-        {# Footer #}
-        {% include 'section/footer.twig' %}
-        
-        {# Update Modal #}
-        {% include 'modal/update.twig' %}
+        {% include 'section/display.twig' %}
 
 
     </body>
 {% endblock %}
+
+
+
+
+
 {% block js %}
     <script src="js/main.home.js"></script>
 {% endblock %}
