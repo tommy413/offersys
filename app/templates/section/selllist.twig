@@ -1,0 +1,31 @@
+<section id="list" class="container content-section text-center">
+    <div class="row">
+        <div class="col-lg-6" align="center">
+            <h2>Products PriceList <a href="#" data-toggle="modal" data-target="#modal-punch"><i class="fa fa-edit"></i></a></h2>
+            <table class="table">
+                <thead align="center">
+                    <tr>
+                        <th>Name</th>
+                        <th>Price1</th>
+                        <th>Price2</th>
+                        <th>Price3</th>
+                        <th>Price4</th>
+                        <th>Price5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in sellrecords %}
+                        <tr>
+                            <td>{{ record.GoodsName }}</td>
+                            <td>{{ record.Price1 }}</td>
+                            <td>{{ record.Price2 }}</td>
+                            <td>{{ record.Price3 }}</td>
+                            <td>{{ record.Price4 }}</td>
+                            <td>{{ record.Price5 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

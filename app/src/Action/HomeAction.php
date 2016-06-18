@@ -11,7 +11,7 @@ final class HomeAction extends PermitAction
     {
         
         $account = $this->account;
-        $teamquery = $this->sql['default']->query("SELECT TeamName , MoneyCount , Productivity FROM team Order by MoneyCount DESC ");
+        $teamquery = $this->sql['default']->query("SELECT TeamName , MoneyCount , Productivity FROM team WHERE Admin <> 1 Order by MoneyCount DESC ");
         if (!$teamquery)$teamarr=[];
         else $teamarr = $teamquery -> fetchAll(\PDO::FETCH_ASSOC);
         
@@ -20,10 +20,24 @@ final class HomeAction extends PermitAction
         if (!$adminarr)$is_admin=0;
         else $is_admin=$adminarr['Admin'];
 
+        $buyquery = $this->sql['default']->query("SELECT * FROM buyprice ");
+        if (!$buyquery)$buyarr=[];
+        else $buyarr = $buyquery -> fetchAll(\PDO::FETCH_ASSOC);
+
+        $proquery = $this->sql['default']->query("SELECT * FROM producing ");
+        if (!$proquery)$proarr=[];
+        else $proarr = $proquery -> fetchAll(\PDO::FETCH_ASSOC);
+
+        $sellquery = $this->sql['default']->query("SELECT * FROM sellprice ");
+        if (!$sellquery)$sellarr=[];
+        else $sellarr = $sellquery -> fetchAll(\PDO::FETCH_ASSOC);
+
         $params = [
             'admin' => $is_admin,
             'teamstatus' => $teamarr,
-            
+            'buyrecords' => $buyarr,
+            'productrecords' => $proarr,
+            'sellrecords' => $sellarr
         ];
 
         
