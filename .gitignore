@@ -1,0 +1,7 @@
+vendor/
+log/*
+cache/*
+.phpintel
+node_modules
+public/lib
+settings.php

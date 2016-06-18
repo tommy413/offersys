@@ -1,0 +1,27 @@
+{
+    "name": "NTUIM/timeclock",
+    "description": "Project for NTU IM database",
+    "license": "MIT",
+    "type": "project",
+    "keywords": ["slim-framework", "skeleton"],
+    "authors": [
+        {
+            "name": "Kevin Shyu",
+            "email": "b01902087@ntu.edu.tw",
+            "homepage": "http://kkshyu.im"
+        },
+        {
+            "name": "Tommy Chang",
+            "email": "b03705012@ntu.edu.tw"
+        }
+    ],
+    "autoload": {
+        "classmap": ["app/src"]
+    },
+    "require": {
+        "slim/slim": "^3.0",
+        "slim/twig-view": "^2.0",
+        "slim/flash": "^0.1.0",
+        "monolog/monolog": "^1.13"
+    }
+}
