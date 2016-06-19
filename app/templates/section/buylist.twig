@@ -2,6 +2,7 @@
     <div class="row">
         <div class="col-lg-6" align="center">
             <h2>Materials PriceList <a href="#" data-toggle="modal" data-target="#modal-punch"><i class="fa fa-edit"></i></a></h2>
+            <form action="/buy" method="post">
             <table class="table">
                 <thead align="center">
                     <tr>
@@ -25,10 +26,13 @@
                             <td>{{ record.Price4 }}</td>
                             <td>{{ record.Price5 }}</td>
                             <td>{{ record.inventory }}</td>
+                            <td><input type="text" name="buy" class="form-control" placeholder="0"></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <input class="btn btn-default" value="Buy!" type="submit"/>
+            </form>
         </div>
     </div>
 </section>

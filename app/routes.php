@@ -4,16 +4,13 @@
 $app->get('/', 'App\Action\HomeAction:dispatch')
     ->setName('homepage');
 
-$app->post('/export', 'App\Action\HomeAction:export')
-    ->setName('export_action');
-
-$app->post('/punch', 'App\Action\HomeAction:punch')
-    ->setName('punch_action');
-
-$app->get('/update', 'App\Action\HomeAction:getUpdateList')
+$app->post('/buy', 'App\Action\HomeAction:buy')
     ->setName('update_data');
 
-$app->post('/update', 'App\Action\HomeAction:update')
+$app->post('/sell', 'App\Action\HomeAction:sell')
+    ->setName('update_action');
+
+$app->post('/produce', 'App\Action\HomeAction:produce')
     ->setName('update_action');
 
 $app->get('/login', 'App\Action\LoginAction:dispatch')

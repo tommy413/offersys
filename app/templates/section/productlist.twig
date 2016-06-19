@@ -1,7 +1,8 @@
 <section id="list" class="container content-section text-center">
     <div class="row">
         <div class="col-lg-6" align="center">
-            <h2>MaterialList <a href="#" data-toggle="modal" data-target="#modal-punch"><i class="fa fa-edit"></i></a></h2>
+            <h2>Producing Order List <a href="#" data-toggle="modal" data-target="#modal-punch"><i class="fa fa-edit"></i></a></h2>
+            <form action="/produce" method="post">
             <table class="table">
                 <thead align="center">
                     <tr>
@@ -31,10 +32,19 @@
                             <td>{{ record.Product7Needed }}</td>
                             <td>{{ record.Product8Needed }}</td>
                             <td>{{ record.inventory }}</td>
+                            <td><input type="text" name="produce" class="form-control" placeholder="0"></td>
                         </tr>
                     {% endfor %}
+                    <tr>
+                        <td>Material inventory</td>
+                        {% for record in buyrecords %}
+                            <td>{{ record.inventory }}</td>
+                        {% endfor %}
+                    </tr>
                 </tbody>
             </table>
+            <input class="btn btn-default" value="Produce!" type="submit"/>
+            </form>
         </div>
     </div>
 </section>

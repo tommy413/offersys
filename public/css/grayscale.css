@@ -70,7 +70,8 @@ a:focus {
 
 .table td,
 .table th {
-   text-align: center;   
+   text-align: center;
+   vertical-align: center;   
 }
 
 .daterangepicker,
@@ -85,6 +86,7 @@ a:focus {
     border: 1px solid #42dca3;
     color: #42dca3;
     background-color: transparent;
+    text-align: center;
 }
 
 .daterangepicker td.in-range {
