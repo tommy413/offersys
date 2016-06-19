@@ -1,6 +1,5 @@
 $(function() {
-
-    function cb(start, end) {
+	function cb(start, end) {
         var start = start.format('YYYY/MM/DD');
         var end = end.format('YYYY/MM/DD');
         var target = $('#reportrange span');
@@ -38,4 +37,5 @@ $(function() {
        return false;
 
     });
+    
 });

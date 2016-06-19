@@ -1,16 +1,18 @@
 {% extends 'base.twig' %}
 {% block title %}Home{% endblock %}
 {% block body %}
-    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" >
         {# Navigation #}
         {% include 'section/navigation.twig' %}
         
         
+        <div id="showbox" onload="ShowTime()"></div>
+        
+
         {% if admin %}
             {# Admin Section #}
             {% include 'section/admin.twig' %}
-            {# Update Team Data #}
-            {% include 'modal/team.twig' %}
+            
         {% else %}
             {# Buying Pricelist #}
             {% include 'section/buylist.twig' %}
@@ -36,4 +38,5 @@
 
 {% block js %}
     <script src="js/main.home.js"></script>
+    
 {% endblock %}

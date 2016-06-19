@@ -35,6 +35,12 @@ final class SignupAction extends BaseAction
         $signupquery->execute();
         $signupquery = $this->sql['default']->prepare("INSERT INTO teamsell(TeamNUM) VALUES ($inserting_id )");
         $signupquery->execute();
+        $signupquery = $this->sql['default']->prepare("INSERT INTO buyorder(TeamNUM) VALUES ($inserting_id )");
+        $signupquery->execute();
+        $signupquery = $this->sql['default']->prepare("INSERT INTO sellorder(TeamNUM) VALUES ($inserting_id )");
+        $signupquery->execute();
+        $signupquery = $this->sql['default']->prepare("INSERT INTO produceorder(TeamNUM) VALUES ($inserting_id )");
+        $signupquery->execute();
         /**
     	
     		TODO:
