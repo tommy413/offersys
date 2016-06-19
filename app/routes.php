@@ -4,6 +4,9 @@
 $app->get('/', 'App\Action\HomeAction:dispatch')
     ->setName('homepage');
 
+$app->post('/updatebuy', 'App\Action\HomeAction:updatebuy')
+    ->setName('update_buy');
+
 $app->post('/buy', 'App\Action\HomeAction:buy')
     ->setName('update_data');
 

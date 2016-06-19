@@ -6,10 +6,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 final class HomeAction extends PermitAction
 {
-
     public function dispatch(Request $request, Response $response, $args)
     {
-        
+        $begintime=strtotime("2016/7/6 14:00:00");
         $materialnum=1;
         $productnum=1;
         $account = $this->account;
@@ -65,9 +64,45 @@ final class HomeAction extends PermitAction
             'sellrecords' => $sellarr
         ];
 
+        $this->logger->info($begintime);
         $this->view->render($response, 'home.twig', $params);
         return $response;
     }
 
+    public function updatebuy(Request $request, Response $response, $args)
+    {
+        $account = $this->account;
+        $body = $request->getParsedBody();
+        $begintime=strtotime("2016/7/6 14:00:00");
+        $materialnum=1;
+        $productnum=1;
+        for ($i=0; $i < $materialnum ; $i++) { 
+            $materialorder[$i]=$body['buy'][$i];
+        }
+
+        $teamquery = $this->sql['default']->query("SELECT TeamNUM FROM team WHERE TeamAccount = '$account' ");
+        if (!$teamquery)$teamarr=[];
+        else $teamarr = $teamquery -> fetchAll(\PDO::FETCH_ASSOC);
+        $team_id=$teamarr[0]['TeamNUM'];
+
+        $buyorderquery = $this->sql['default']->prepare("UPDATE Buyorder 
+                                                         SET Product1 = $materialorder[0] , Product2 = $materialorder[1] , Product3 = $materialorder[2] , Product4 = $materialorder[3] ,
+                                                             Product5 = $materialorder[4] , Product6 = $materialorder[5] , Product7 = $materialorder[6] , Product8 = $materialorder[7] 
+                                                         WHERE TeamNUM = '$team_id' ");
+        $buyorderquery->execute();
+
+        return $response->withRedirect('/');
+
+    }
+
+    public function produce(Request $request, Response $response, $args)
+    {
+
+    }
+
+    public function sell(Request $request, Response $response, $args)
+    {
+
+    }
     
 }
