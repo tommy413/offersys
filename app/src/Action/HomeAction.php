@@ -22,10 +22,13 @@ final class HomeAction extends PermitAction
             }
         }
         
-        $adminquery = $this->sql['default']->query("SELECT Admin FROM team WHERE TeamAccount = '$account' ");
+        $adminquery = $this->sql['default']->query("SELECT TeamName , Admin FROM team WHERE TeamAccount = '$account' ");
         $adminarr = $adminquery -> fetchAll(\PDO::FETCH_ASSOC);
         if (!$adminarr)$is_admin=0;
-        else $is_admin=$adminarr['Admin'];
+        else {
+            $teamname=$adminarr[0]['TeamName'];
+            $is_admin=$adminarr[0]['Admin'];
+        }
 
         $buyquery = $this->sql['default']->query("SELECT * FROM buyprice ");
         if (!$buyquery)$buyarr=[];
