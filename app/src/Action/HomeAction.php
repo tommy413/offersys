@@ -12,7 +12,8 @@ final class HomeAction extends PermitAction
         $materialnum=8;
         $productnum=8;
         $account = $this->account;
-        $teamquery = $this->sql['default']->query("SELECT TeamNUM, TeamName , TeamAccount , MoneyCount , Productivity FROM team WHERE Admin <> 1 Order by MoneyCount DESC ");
+        $team_id=0;
+        $teamquery = $this->sql['default']->query("SELECT TeamNUM, TeamName , TeamAccount , MoneyCount , Productivity FROM team WHERE Admin <> 1 Order by MoneyCount DESC , Productivity DESC");
         if (!$teamquery)$teamarr=[];
         else $teamarr = $teamquery -> fetchAll(\PDO::FETCH_ASSOC);
         foreach ($teamarr as $key => $value) {
@@ -44,55 +45,65 @@ final class HomeAction extends PermitAction
 
         $buyinquery = $this->sql['default']->query("SELECT * FROM teambuy WHERE TeamNUM = '$team_id' ");
         if (!$buyinquery)$buyinarr=[];
-        else $buyinarr = $buyinquery -> fetchAll(\PDO::FETCH_ASSOC);
+        else {$buyinarr = $buyinquery -> fetchAll(\PDO::FETCH_ASSOC);
         for ($i=0; $i < $materialnum ; $i++) {
             $item_id=$i+1;
             $buyarr[$i]['inventory']=$buyinarr[0]["Product$item_id"];
         }
+        }
 
         $sellinquery = $this->sql['default']->query("SELECT * FROM teamsell WHERE TeamNUM = '$team_id' ");
         if (!$sellinquery)$sellinarr=[];
-        else $sellinarr = $sellinquery -> fetchAll(\PDO::FETCH_ASSOC);
+        else {$sellinarr = $sellinquery -> fetchAll(\PDO::FETCH_ASSOC);
         for ($i=0; $i < $productnum ; $i++) { 
             $item_id=$i+1;
             $sellarr[$i]['inventory']=$sellinarr[0]["Goods$item_id"];
             $proarr[$i]['inventory']=$sellinarr[0]["Goods$item_id"];
         }
+        }
 
         $buyorquery = $this->sql['default']->query("SELECT * FROM buyorder WHERE TeamNUM = '$team_id' ");
         if (!$buyorquery)$buyorarr=[];
-        else $buyorarr = $buyorquery -> fetchAll(\PDO::FETCH_ASSOC);
+        else {$buyorarr = $buyorquery -> fetchAll(\PDO::FETCH_ASSOC);
         for ($i=0; $i < $materialnum ; $i++) {
             $item_id=$i+1;
             $buyarr[$i]['ordered']=$buyorarr[0]["Product$item_id"];
         }
+        }
 
         $sellorquery = $this->sql['default']->query("SELECT * FROM sellorder WHERE TeamNUM = '$team_id' ");
         if (!$sellorquery)$sellorarr=[];
-        else $sellorarr = $sellorquery -> fetchAll(\PDO::FETCH_ASSOC);
+        else {$sellorarr = $sellorquery -> fetchAll(\PDO::FETCH_ASSOC);
         for ($i=0; $i < $productnum ; $i++) { 
             $item_id=$i+1;
             $sellarr[$i]['ordered']=$sellorarr[0]["Goods$item_id"];
         }
+        }
 
         $produceorquery = $this->sql['default']->query("SELECT * FROM produceorder WHERE TeamNUM = '$team_id' ");
         if (!$produceorquery)$produceorarr=[];
-        else $produceorarr = $produceorquery -> fetchAll(\PDO::FETCH_ASSOC);
+        else {$produceorarr = $produceorquery -> fetchAll(\PDO::FETCH_ASSOC);
         for ($i=0; $i < $productnum ; $i++) { 
             $item_id=$i+1;
             $proarr[$i]['ordered']=$produceorarr[0]["Producing$item_id"];
         }
+        }
 
+        $teaminfoquery = $this->sql['default']->query("SELECT * FROM team As a LEFT OUTER JOIN teambuy As b ON a.TeamNUM=b.TeamNUM LEFT OUTER JOIN teamsell As c ON a.TeamNUM=c.TeamNUM WHERE a.admin <> 1 ");
+        if (!$teaminfoquery)$teaminfoarr=[];
+        else $teaminfoarr = $teaminfoquery -> fetchAll(\PDO::FETCH_ASSOC);
+        
         $params = [
             'name' => $teamname,
             'admin' => $is_admin,
             'teamstatus' => $teamarr,
             'buyrecords' => $buyarr,
             'productrecords' => $proarr,
-            'sellrecords' => $sellarr
+            'sellrecords' => $sellarr,
+            'teaminforecords' => $teaminfoarr
         ];
 
-        //$this->logger->info($begintime);
+        //$this->logger->debug("admin",$teaminfoarr);
         $this->view->render($response, 'home.twig', $params);
         return $response;
     }
@@ -102,7 +113,7 @@ final class HomeAction extends PermitAction
         $account = $this->account;
         $body = $request->getParsedBody();
         $begintime=strtotime("2016/7/6 14:00:00");
-        $materialnum=1;
+        $materialnum=8;
         for ($i=0; $i <8 ; $i++) { 
             $materialorder[$i]=0;
         }
@@ -127,7 +138,7 @@ final class HomeAction extends PermitAction
         $buyorderquery = $this->sql['default']->prepare("UPDATE buyorder SET Product1 = $materialorder[0] , Product2 = $materialorder[1] , Product3 = $materialorder[2] , Product4 = $materialorder[3] , Product5 = $materialorder[4] , Product6 = $materialorder[5] , Product7 = $materialorder[6] , Product8 = $materialorder[7] WHERE TeamNUM = '$team_id' ");
         $buyorderquery->execute();
 
-        $this->logger->debug("order:\n",$materialorder);
+        //$this->logger->debug("order:\n",$materialorder);
 
         return $response->withRedirect('/');
 
@@ -138,7 +149,7 @@ final class HomeAction extends PermitAction
         $account = $this->account;
         $body = $request->getParsedBody();
         $begintime=strtotime("2016/7/6 14:00:00");
-        $productnum=1;
+        $productnum=8;
         for ($i=0; $i <8 ; $i++) { 
             $productorder[$i]=0;
         }
@@ -163,7 +174,7 @@ final class HomeAction extends PermitAction
         $sellorderquery = $this->sql['default']->prepare("UPDATE sellorder SET Goods1 = $productorder[0] , Goods2 = $productorder[1] , Goods3 = $productorder[2] , Goods4 = $productorder[3] , Goods5 = $productorder[4] , Goods6 = $productorder[5] , Goods7 = $productorder[6] , Goods8 = $productorder[7] WHERE TeamNUM = '$team_id' ");
         $sellorderquery->execute();
 
-        $this->logger->debug("order:\n",$productorder);
+        //$this->logger->debug("order:\n",$productorder);
 
         return $response->withRedirect('/');
 
@@ -174,14 +185,13 @@ final class HomeAction extends PermitAction
         $account = $this->account;
         $body = $request->getParsedBody();
         $begintime=strtotime("2016/7/6 14:00:00");
-        $productnum=1;
+        $productnum=8;
         for ($i=0; $i <8 ; $i++) { 
             $produceorder[$i]=0;
         }
         for ($i=0; $i < $productnum ; $i++) { 
             $produceorder[$i]=$body['produce'][$i];
         }
-
 
         $teamquery = $this->sql['default']->query("SELECT TeamNUM FROM team WHERE TeamAccount = '$account' ");
         if (!$teamquery)$teamarr=[];
@@ -199,24 +209,42 @@ final class HomeAction extends PermitAction
         $produceorderquery = $this->sql['default']->prepare("UPDATE produceorder SET Producing1 = $produceorder[0] , Producing2 = $produceorder[1] , Producing3 = $produceorder[2] , Producing4 = $produceorder[3] , Producing5 = $produceorder[4] , Producing6 = $produceorder[5] , Producing7 = $produceorder[6] , Producing8 = $produceorder[7] WHERE TeamNUM = '$team_id' ");
         $produceorderquery->execute();
 
-        $this->logger->debug("order:\n",$produceorder);
+        //$this->logger->debug("order:\n",$produceorder);
 
         return $response->withRedirect('/');
 
     }
 
-    public function buy(Request $request, Response $response, $args)
+    public function updateteam(Request $request, Response $response, $args)
     {
+        $body = $request->getParsedBody();
+        $begintime=time();
+        $max_team_r = $this->sql['default']->query("SELECT MAX(TeamNUM) FROM team ");
+        $max_team_rs = $max_team_r->fetch();
+        $max_team_id = $max_team_rs[0];
+        
+        for ($i=1; $i<=$max_team_id ; $i++) { 
+            $teamarg=$body['team'][$i];
+            $buyarg=$body['buy'][$i];
+            $sellarg=$body['sell'][$i];
+            $teamquery = $this->sql['default']->prepare("UPDATE team SET MoneyCount=$teamarg[0] , Productivity=$teamarg[1] , BuyBUFF=$teamarg[2] , SellBUFF=$teamarg[3] WHERE TeamNUM = '$i' ");
+            $teamquery->execute();
+            $teambuyquery = $this->sql['default']->prepare("UPDATE teambuy SET Product1=$buyarg[0] , Product2=$buyarg[1] , Product3=$buyarg[2] , Product4=$buyarg[3] , Product5=$buyarg[4] , Product6=$buyarg[5] , Product7=$buyarg[6] , Product8=$buyarg[7] WHERE TeamNUM = '$i' ");
+            $teambuyquery->execute();
+            $teamsellquery = $this->sql['default']->prepare("UPDATE teamsell SET Goods1=$sellarg[0] , Goods2=$sellarg[1] , Goods3=$sellarg[2] , Goods4=$sellarg[3] , Goods5=$sellarg[4] , Goods6=$sellarg[5] , Goods7=$sellarg[6] , Goods8=$sellarg[7] WHERE TeamNUM = '$i' ");
+            $teamsellquery->execute();
+        }
+        $endtime=time();
 
-    }
+        $this->logger->debug("body",$body);
+        $this->logger->debug("team",$teamarg);
+        $this->logger->debug("buy",$buyarg);
+        $this->logger->debug("sell",$sellarg);
+        $this->logger->info($max_team_id);
+        $this->logger->info($begintime);
+        $this->logger->info($endtime);
 
-    public function produce(Request $request, Response $response, $args)
-    {
-
-    }
-
-    public function sell(Request $request, Response $response, $args)
-    {
+        return $response->withRedirect('/');
 
     }
     

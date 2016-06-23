@@ -3,8 +3,50 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h2 >Admin</h2>
-
+                    <h1 class="brand-heading" id="admin">Admin</h1>
+                    <h2>Team status</h2>
+                    <form action="/updateteam" method="post">
+                    <table class="table">
+                        <tbody >
+                            {% for record in teaminforecords %}
+                            <tr>
+                                <td class="teamname"><h4>{{ record.TeamName }}</h4></td>
+                                <td>Money<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.MoneyCount }}"></td>
+                                <td>Productivity<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Productivity }}"></td>
+                                <td>BuyBUFF<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.BuyBUFF }}"></td>
+                                <td>SellBUFF<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.SellBUFF }}"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Materials</td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product1 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product2 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product3 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product4 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product5 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product6 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product7 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product8 }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Goods</td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods1 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods2 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods3 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods4 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods5 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods6 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods7 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods8 }}"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <input class="btn btn-default" value="Update!" type="submit"/>
+                    </form>
                 </div>
             </div>
         </div>

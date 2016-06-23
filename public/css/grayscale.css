@@ -438,3 +438,7 @@ body {
 .row {
     text-align: center;
 }
+
+#admin {
+    margin-top: 10%;
+}

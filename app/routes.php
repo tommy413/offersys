@@ -4,23 +4,17 @@
 $app->get('/', 'App\Action\HomeAction:dispatch')
     ->setName('homepage');
 
+$app->post('/updateteam', 'App\Action\HomeAction:updateteam')
+    ->setName('update_team');
+
 $app->post('/updatebuy', 'App\Action\HomeAction:updatebuy')
     ->setName('update_buy');
-
-$app->post('/buy', 'App\Action\HomeAction:buy')
-    ->setName('buy_action');
 
 $app->post('/updatesell', 'App\Action\HomeAction:updatesell')
     ->setName('update_sell');
 
-$app->post('/sell', 'App\Action\HomeAction:sell')
-    ->setName('sell_action');
-
 $app->post('/updateproduce', 'App\Action\HomeAction:updateproduce')
     ->setName('update_produce');
-
-$app->post('/produce', 'App\Action\HomeAction:produce')
-    ->setName('produce_action');
 
 $app->get('/login', 'App\Action\LoginAction:dispatch')
     ->setName('login_page');
