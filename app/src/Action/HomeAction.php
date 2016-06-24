@@ -116,8 +116,8 @@ final class HomeAction extends PermitAction
             'NowState' => $state
         ];
 
-        $this->logger->info($begintime);
-        $this->logger->info($endtime);
+        //$this->logger->info($begintime);
+        //$this->logger->info($endtime);
         $this->view->render($response, 'home.twig', $params);
         return $response;
     }

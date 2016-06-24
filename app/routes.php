@@ -30,3 +30,6 @@ $app->get('/signup', 'App\Action\SignupAction:dispatch')
 
 $app->post('/signup', 'App\Action\SignupAction:signup')
     ->setName('signup_action');
+
+$app->get('/back', 'App\Action\BackAction:dispatch')
+    ->setName('backpage');
