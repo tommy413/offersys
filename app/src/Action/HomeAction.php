@@ -8,26 +8,36 @@ final class HomeAction extends PermitAction
 {
     public function dispatch(Request $request, Response $response, $args)
     {
-        $begintime=strtotime("2016/7/6 14:00:00");
+        date_default_timezone_set("Asia/Taipei");
+        $begintime=strtotime("2016-6-24 04:00:00");//記得用英國時間!!!!!!
+        $nowtime=date("y/m/d h:i:s A");
+        $endtime=strtotime(date("Y-m-d h:i:s"));
+        $state=floor(($endtime-$begintime)/(15*60));
+        $mins=floor((15*60-(($endtime-$begintime)%(15*60)))/60);
+        $secs=(15*60-(($endtime-$begintime)%(15*60)))%60;
+        $rtime="$mins".":"."$secs";
+
         $materialnum=8;
         $productnum=8;
         $account = $this->account;
         $team_id=0;
         $teamquery = $this->sql['default']->query("SELECT TeamNUM, TeamName , TeamAccount , MoneyCount , Productivity FROM team WHERE Admin <> 1 Order by MoneyCount DESC , Productivity DESC");
         if (!$teamquery)$teamarr=[];
-        else $teamarr = $teamquery -> fetchAll(\PDO::FETCH_ASSOC);
+        else {$teamarr = $teamquery -> fetchAll(\PDO::FETCH_ASSOC);
         foreach ($teamarr as $key => $value) {
             if ($account==$value['TeamAccount']) {
                 $team_id=$value['TeamNUM'];
                 $teamname=$value['TeamName'];
             }
         }
+        }
         
-        $adminquery = $this->sql['default']->query("SELECT TeamName , Admin FROM team WHERE TeamAccount = '$account' ");
+        $adminquery = $this->sql['default']->query("SELECT TeamNUM, TeamName , Admin FROM team WHERE TeamAccount = '$account' ");
         $adminarr = $adminquery -> fetchAll(\PDO::FETCH_ASSOC);
         if (!$adminarr)$is_admin=0;
         else {
             $teamname=$adminarr[0]['TeamName'];
+            $team_id=$value['TeamNUM'];
             $is_admin=$adminarr[0]['Admin'];
         }
 
@@ -100,10 +110,14 @@ final class HomeAction extends PermitAction
             'buyrecords' => $buyarr,
             'productrecords' => $proarr,
             'sellrecords' => $sellarr,
-            'teaminforecords' => $teaminfoarr
+            'teaminforecords' => $teaminfoarr,
+            'NowTime' => $nowtime,
+            'RTime' => $rtime,
+            'NowState' => $state
         ];
 
-        //$this->logger->debug("admin",$teaminfoarr);
+        $this->logger->info($begintime);
+        $this->logger->info($endtime);
         $this->view->render($response, 'home.twig', $params);
         return $response;
     }
@@ -222,25 +236,41 @@ final class HomeAction extends PermitAction
         $max_team_r = $this->sql['default']->query("SELECT MAX(TeamNUM) FROM team ");
         $max_team_rs = $max_team_r->fetch();
         $max_team_id = $max_team_rs[0];
-        
         for ($i=1; $i<=$max_team_id ; $i++) { 
-            $teamarg=$body['team'][$i];
-            $buyarg=$body['buy'][$i];
-            $sellarg=$body['sell'][$i];
+            $teamdataquery = $this->sql['default']->query("SELECT * FROM team WHERE TeamNUM = '$i' ");
+            if (!$teamdataquery)break;
+            $teamdataarr = $teamdataquery -> fetchAll(\PDO::FETCH_ASSOC);
+            $buydataquery = $this->sql['default']->query("SELECT * FROM teambuy WHERE TeamNUM = '$i' ");
+            if (!$buydataquery)break;
+            $buydataarr = $buydataquery -> fetchAll(\PDO::FETCH_ASSOC);
+            $selldataquery = $this->sql['default']->query("SELECT * FROM teamsell WHERE TeamNUM = '$i' ");
+            if (!$selldataquery)break;
+            $selldataarr = $selldataquery -> fetchAll(\PDO::FETCH_ASSOC);
+
+            $teamarg[0]=$body['team'][$i][0]+$teamdataarr[0]['MoneyCount'];
+            $teamarg[1]=$body['team'][$i][1]+$teamdataarr[0]['Productivity'];
+            $teamarg[2]=$body['team'][$i][2]+$teamdataarr[0]['BuyBUFF'];
+            $teamarg[3]=$body['team'][$i][3]+$teamdataarr[0]['SellBUFF'];
+
+            for ($j=0; $j <8 ; $j++) { 
+                $item_id=$j+1;
+                $buyarg[$j]=$body['buy'][$i][$j]+$buydataarr[0]["Product$item_id"];
+                $sellarg[$j]=$body['sell'][$i][$j]+$selldataarr[0]["Goods$item_id"];
+            }
+
             $teamquery = $this->sql['default']->prepare("UPDATE team SET MoneyCount=$teamarg[0] , Productivity=$teamarg[1] , BuyBUFF=$teamarg[2] , SellBUFF=$teamarg[3] WHERE TeamNUM = '$i' ");
             $teamquery->execute();
             $teambuyquery = $this->sql['default']->prepare("UPDATE teambuy SET Product1=$buyarg[0] , Product2=$buyarg[1] , Product3=$buyarg[2] , Product4=$buyarg[3] , Product5=$buyarg[4] , Product6=$buyarg[5] , Product7=$buyarg[6] , Product8=$buyarg[7] WHERE TeamNUM = '$i' ");
             $teambuyquery->execute();
             $teamsellquery = $this->sql['default']->prepare("UPDATE teamsell SET Goods1=$sellarg[0] , Goods2=$sellarg[1] , Goods3=$sellarg[2] , Goods4=$sellarg[3] , Goods5=$sellarg[4] , Goods6=$sellarg[5] , Goods7=$sellarg[6] , Goods8=$sellarg[7] WHERE TeamNUM = '$i' ");
             $teamsellquery->execute();
+            
         }
         $endtime=time();
 
-        $this->logger->debug("body",$body);
-        $this->logger->debug("team",$teamarg);
-        $this->logger->debug("buy",$buyarg);
-        $this->logger->debug("sell",$sellarg);
-        $this->logger->info($max_team_id);
+        // $this->logger->debug("team",$teamarg);
+        // $this->logger->debug("buy",$buyarg);
+        // $this->logger->debug("sell",$sellarg);
         $this->logger->info($begintime);
         $this->logger->info($endtime);
 

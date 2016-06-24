@@ -5,6 +5,7 @@ use Interop\Container\ContainerInterface;
 
 error_reporting(0);
 
+
 class BaseAction
 {
     

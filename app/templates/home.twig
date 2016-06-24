@@ -1,11 +1,11 @@
 {% extends 'base.twig' %}
 {% block title %}Home{% endblock %}
 {% block body %}
-    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" >
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" onload="setTimeout('location.reload()',900000)">
+        <!--  -->
         {# Navigation #}
         {% include 'section/navigation.twig' %}
-        
-        
+
         
 
         {% if admin %}
@@ -13,6 +13,9 @@
             {% include 'section/admin.twig' %}
             
         {% else %}
+            {# time #}
+            {% include 'section/time.twig' %}
+
             {# Buying Pricelist #}
             {% include 'section/buylist.twig' %}
 

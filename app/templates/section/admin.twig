@@ -11,10 +11,10 @@
                             {% for record in teaminforecords %}
                             <tr>
                                 <td class="teamname"><h4>{{ record.TeamName }}</h4></td>
-                                <td>Money<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.MoneyCount }}"></td>
-                                <td>Productivity<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Productivity }}"></td>
-                                <td>BuyBUFF<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.BuyBUFF }}"></td>
-                                <td>SellBUFF<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.SellBUFF }}"></td>
+                                <td>Money<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.MoneyCount }}"></td>
+                                <td>Productivity<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Productivity }}"></td>
+                                <td>BuyBUFF<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.BuyBUFF }}"></td>
+                                <td>SellBUFF<input type="text" name="team[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.SellBUFF }}"></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -22,25 +22,25 @@
                             </tr>
                             <tr>
                                 <td>Materials</td>
-                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product1 }}"></td>
-                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product2 }}"></td>
-                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product3 }}"></td>
-                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product4 }}"></td>
-                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product5 }}"></td>
-                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product6 }}"></td>
-                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product7 }}"></td>
-                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Product8 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Product1 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Product2 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Product3 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Product4 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Product5 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Product6 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Product7 }}"></td>
+                                <td><input type="text" name="buy[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Product8 }}"></td>
                             </tr>
                             <tr>
                                 <td>Goods</td>
-                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods1 }}"></td>
-                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods2 }}"></td>
-                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods3 }}"></td>
-                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods4 }}"></td>
-                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods5 }}"></td>
-                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods6 }}"></td>
-                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods7 }}"></td>
-                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="{{ record.Goods8 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Goods1 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Goods2 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Goods3 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Goods4 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Goods5 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Goods6 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Goods7 }}"></td>
+                                <td><input type="text" name="sell[{{ record.TeamNUM }}][]" class="form-control" value="0" placeholder="{{ record.Goods8 }}"></td>
                             </tr>
                             {% endfor %}
                         </tbody>
