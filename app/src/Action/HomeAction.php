@@ -37,7 +37,6 @@ final class HomeAction extends PermitAction
         if (!$adminarr)$is_admin=0;
         else {
             $teamname=$adminarr[0]['TeamName'];
-            $team_id=$value['TeamNUM'];
             $is_admin=$adminarr[0]['Admin'];
         }
 
@@ -277,5 +276,6 @@ final class HomeAction extends PermitAction
         return $response->withRedirect('/');
 
     }
+    
     
 }

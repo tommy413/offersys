@@ -4,7 +4,7 @@ namespace App\Action;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-final class BackAction extends BaseAction
+final class BackAction extends PermitAction
 {
     public function dispatch(Request $request, Response $response, $args)
     {
@@ -23,13 +23,12 @@ final class BackAction extends BaseAction
             'NowState' => $state
         ];
 
-        $this->logger->debug("back_info", $params);
-        $this->view->render($response, 'back.twig', $params);
+        $this->view->render($response, 'back.twig' , $params);
         return $response;
     }
 
-    // public function run(Request $request, Response $response, $args)
-    // {
+    public function run(Request $request, Response $response, $args)
+    {
         
-    // }
+    }
 }
