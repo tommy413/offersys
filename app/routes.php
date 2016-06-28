@@ -33,3 +33,7 @@ $app->post('/signup', 'App\Action\SignupAction:signup')
 
 $app->get('/back', 'App\Action\BackAction:dispatch')
     ->setName('backpage');
+
+$app->get('/run', 'App\Action\BackAction:run_dispatch')
+    ->setName('runpage');
+

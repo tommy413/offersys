@@ -1,0 +1,19 @@
+{% extends 'base.twig' %}
+{% block title %}Run{% endblock %}
+{% block body %}
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+            <header class="intro">
+    			<div class="intro-body">
+        			<div class="container">
+            			<div class="row">
+                			<div class="col-md-8 col-md-offset-2">
+                    			<h1 class="brand-heading">Running</h1>
+                    			<input class="btn btn-default" onclick="run();" value="Run!" type="button">
+            					<input class="btn btn-default" onclick="stop();" value="Stop!" type="button">
+                			</div>
+            			</div>
+        			</div>
+    			</div>
+			</header>
+    </body>
+{% endblock %}

@@ -4,7 +4,7 @@ namespace App\Action;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-final class BackAction extends PermitAction
+final class BackAction extends BaseAction
 {
     public function dispatch(Request $request, Response $response, $args)
     {
@@ -27,8 +27,9 @@ final class BackAction extends PermitAction
         return $response;
     }
 
-    public function run(Request $request, Response $response, $args)
+    public function run_dispatch(Request $request, Response $response, $args)
     {
-        
+        $this->view->render($response, 'run.twig');
+        return $response;
     }
 }
