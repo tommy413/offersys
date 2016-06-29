@@ -48,6 +48,6 @@ final class SignupAction extends BaseAction
     	
     	 */
     	
-        return $response->withRedirect('/');
+        return $response->withRedirect('/offersys/test/public');
     }
 }

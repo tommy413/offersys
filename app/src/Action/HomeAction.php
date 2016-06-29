@@ -153,7 +153,7 @@ final class HomeAction extends PermitAction
 
         //$this->logger->debug("order:\n",$materialorder);
 
-        return $response->withRedirect('/');
+        return $response->withRedirect('/offersys/test/public');
 
     }
 
@@ -189,7 +189,7 @@ final class HomeAction extends PermitAction
 
         //$this->logger->debug("order:\n",$productorder);
 
-        return $response->withRedirect('/');
+        return $response->withRedirect('/offersys/test/public');
 
     }
 
@@ -224,7 +224,7 @@ final class HomeAction extends PermitAction
 
         //$this->logger->debug("order:\n",$produceorder);
 
-        return $response->withRedirect('/');
+        return $response->withRedirect('/offersys/test/public');
 
     }
 
@@ -273,7 +273,7 @@ final class HomeAction extends PermitAction
         $this->logger->info($begintime);
         $this->logger->info($endtime);
 
-        return $response->withRedirect('/');
+        return $response->withRedirect('/offersys/test/public');
 
     }
     

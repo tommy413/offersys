@@ -62,7 +62,7 @@ final class LoginAction extends BaseAction
         }
     
         //  login success
-        return $response->withRedirect('/');
+        return $response->withRedirect('/offersys/test/public');
 
     }
 }

@@ -20,7 +20,7 @@ class PermitAction extends BaseAction
     	$token = $_SESSION['token'];
 
     	if (time() - $timestamp > 3600 || password_verify("$account:$timestamp", $token) === false) {
-    		header("Location: /login");
+    		header("Location: /offersys/test/public/login");
     	}
 
     	$this->account = $account;

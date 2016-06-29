@@ -11,6 +11,6 @@ final class LogoutAction extends BaseAction
     {
         session_unset();
         session_destroy();
-        return $response->withRedirect('login');
+        return $response->withRedirect('/offersys/test/public/login');
     }
 }

@@ -24,13 +24,8 @@ return [
         // sql settings
         'sql' => [
             'default' => [
-                'dsn' => 'mysql:host=localhost;dbname=imcamp2016rpg',
-                'username' => 'root',
-                'password' => '',
-            ],
-            'information_schema' => [
-                'dsn' => 'mysql:host=localhost;dbname=information_schema',
-                'username' => 'root',
+                'dsn' => 'mysql:host=localhost;dbname=tommy',
+                'username' => 'tommy',
                 'password' => '',
             ]
         ]
