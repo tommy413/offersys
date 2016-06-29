@@ -20,6 +20,7 @@ final class HomeAction extends PermitAction
         $materialnum=8;
         $productnum=8;
         $account = $this->account;
+        $teamname="";
         $team_id=0;
         $teamquery = $this->sql['default']->query("SELECT TeamNUM, TeamName , TeamAccount , MoneyCount , Productivity FROM team WHERE Admin <> 1 Order by MoneyCount DESC , Productivity DESC");
         if (!$teamquery)$teamarr=[];
@@ -38,6 +39,10 @@ final class HomeAction extends PermitAction
         else {
             $teamname=$adminarr[0]['TeamName'];
             $is_admin=$adminarr[0]['Admin'];
+        }
+
+        if ($teamname==""){
+            return $response->withRedirect('/offersys/test/public/login');            
         }
 
         $buyquery = $this->sql['default']->query("SELECT * FROM buyprice ");
@@ -116,7 +121,7 @@ final class HomeAction extends PermitAction
         ];
 
         //$this->logger->info($begintime);
-        //$this->logger->info($endtime);
+        //$this->logger->info($teamname);
         $this->view->render($response, 'home.twig', $params);
         return $response;
     }
