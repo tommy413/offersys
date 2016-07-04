@@ -37,3 +37,11 @@ $app->get('/back', 'App\Action\BackAction:dispatch')
 $app->get('/run', 'App\Action\BackAction:run_dispatch')
     ->setName('runpage');
 
+$app->post('/updateprice', 'App\Action\BackAction:updateprice')
+     ->setName('updateprice');
+
+$app->post('/init', 'App\Action\BackAction:init')
+     ->setName('init');
+
+$app->post('/deleteteam', 'App\Action\BackAction:deleteteam')
+     ->setName('deleteteam');

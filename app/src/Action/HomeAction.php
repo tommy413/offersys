@@ -17,12 +17,14 @@ final class HomeAction extends PermitAction
         $secs=(15*60-(($endtime-$begintime)%(15*60)))%60;
         $rtime="$mins".":"."$secs";
 
+        $goodsname=["VR裝備","平板電腦","穿戴式裝置","智慧型手機","雲端服務平台","社群交友配對網站","遊戲人生PC","管理人才NB"];
+        $productname=["肥貓CPU","燒壞的主機板","藍色的當機螢幕","興趣使然的肥宅","尊爵不凡的顯卡","靠北工程師的肝","惱人的鍵盤","左手用的滑鼠"];
         $materialnum=8;
         $productnum=8;
         $account = $this->account;
         $teamname="";
         $team_id=0;
-        $teamquery = $this->sql['default']->query("SELECT TeamNUM, TeamName , TeamAccount , MoneyCount , Productivity FROM team WHERE Admin <> 1 Order by MoneyCount DESC , Productivity DESC");
+        $teamquery = $this->sql['default']->query("SELECT TeamNUM, TeamName , TeamAccount , MoneyCount , Productivity FROM team WHERE Admin <> 1 Order by MoneyCount DESC , Productivity DESC , TeamNUM ASC");
         if (!$teamquery)$teamarr=[];
         else {$teamarr = $teamquery -> fetchAll(\PDO::FETCH_ASSOC);
         foreach ($teamarr as $key => $value) {
@@ -82,6 +84,7 @@ final class HomeAction extends PermitAction
         for ($i=0; $i < $materialnum ; $i++) {
             $item_id=$i+1;
             $buyarr[$i]['ordered']=$buyorarr[0]["Product$item_id"];
+            $buyarr[$i]['ProductName']=$productname[$i];
         }
         }
 
@@ -91,6 +94,7 @@ final class HomeAction extends PermitAction
         for ($i=0; $i < $productnum ; $i++) { 
             $item_id=$i+1;
             $sellarr[$i]['ordered']=$sellorarr[0]["Goods$item_id"];
+            $sellarr[$i]['GoodsName']=$goodsname[$i];
         }
         }
 
@@ -100,10 +104,11 @@ final class HomeAction extends PermitAction
         for ($i=0; $i < $productnum ; $i++) { 
             $item_id=$i+1;
             $proarr[$i]['ordered']=$produceorarr[0]["Producing$item_id"];
+            $proarr[$i]['GoodsName']=$goodsname[$i];
         }
         }
 
-        $teaminfoquery = $this->sql['default']->query("SELECT * FROM team As a LEFT OUTER JOIN teambuy As b ON a.TeamNUM=b.TeamNUM LEFT OUTER JOIN teamsell As c ON a.TeamNUM=c.TeamNUM WHERE a.admin <> 1 ");
+        $teaminfoquery = $this->sql['default']->query("SELECT * FROM team As a LEFT OUTER JOIN teambuy As b ON a.TeamNUM=b.TeamNUM LEFT OUTER JOIN teamsell As c ON a.TeamNUM=c.TeamNUM WHERE a.admin <> 1 Order by a.TeamNUM ASC");
         if (!$teaminfoquery)$teaminfoarr=[];
         else $teaminfoarr = $teaminfoquery -> fetchAll(\PDO::FETCH_ASSOC);
         

@@ -2,10 +2,33 @@
 {% block title %}Back{% endblock %}
 {% block body %}
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-       {% include 'section/time.twig'  %}
-        
-            <button class="form-control" onclick="run();">Run!</button>
-            <button class="form-control" onclick="stop();">Stop!</button>
-        
+       
+    {% include 'section/admin.twig' %}
+
+    
+    
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1></h1>
+                    <h1>Delete</h1>
+                    <form action="/offersys/test/public/deleteteam" method="post">
+                        <input type="text" name="delete_teamname" class="form-control" placeholder="Enter Team's Name">
+                        <input class="btn btn-default" value="Delete" type="submit">
+                    </form>
+                    <h1></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'section/price.twig' %}
+
     </body>
+{% endblock %}
+
+{% block js %}
+    <script src="js/main.home.js"></script>
+    
 {% endblock %}

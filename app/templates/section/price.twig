@@ -1,0 +1,100 @@
+<header class="intro">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="brand-heading" id="admin">Change Price</h1>
+                    <h2>Price status</h2>
+                    <form action="/offersys/test/public/updateprice" method="post">
+                    
+                    <table class="table">
+                        <h3>Buy Price</h3>
+                        <tbody >
+                            <tr>
+                                <td>NUM</td>
+                                <td>Name</td>
+                                <td>Price1</td>
+                                <td>Price2</td>
+                                <td>Price3</td>
+                                <td>Price4</td>
+                                <td>Price5</td>
+                            </tr>
+                            {% for record in buyinforecords %}
+                            <tr>
+                                <td>{{ record.ProductNUM }}</td>
+                                <td><input type="text" name="buyprice[{{ record.ProductNUM }}][]" class="form-control" value="{{ record.ProductName }}"></td>
+                                <td><input type="text" name="buyprice[{{ record.ProductNUM }}][]" class="form-control" value="{{ record.Price1 }}"></td>
+                                <td><input type="text" name="buyprice[{{ record.ProductNUM }}][]" class="form-control" value="{{ record.Price2 }}"></td>
+                                <td><input type="text" name="buyprice[{{ record.ProductNUM }}][]" class="form-control" value="{{ record.Price3 }}"></td>
+                                <td><input type="text" name="buyprice[{{ record.ProductNUM }}][]" class="form-control" value="{{ record.Price4 }}"></td>
+                                <td><input type="text" name="buyprice[{{ record.ProductNUM }}][]" class="form-control" value="{{ record.Price5 }}"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+                    <table class="table">
+                        <h3>Produce formula</h3>
+                        <tbody >
+                            <tr>
+                                <td>NUM</td>
+                                <td>Name</td>
+                                <td>Product1Needed</td>
+                                <td>Product2Needed</td>
+                                <td>Product3Needed</td>
+                                <td>Product4Needed</td>
+                                <td>Product5Needed</td>
+                                <td>Product6Needed</td>
+                                <td>Product7Needed</td>
+                                <td>Product8Needed</td>
+                            </tr>
+                            {% for record in produceinforecords %}
+                            <tr>
+                                <td>{{ record.GoodsNUM }}</td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.GoodsName }}"></td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Product1Needed }}"></td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Product2Needed }}"></td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Product3Needed }}"></td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Product4Needed }}"></td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Product5Needed }}"></td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Product6Needed }}"></td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Product7Needed }}"></td>
+                                <td><input type="text" name="produce[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Product8Needed }}"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <h3>Sell Price</h3>
+                        <tbody >
+                            <tr>
+                                <td>NUM</td>
+                                <td>Name</td>
+                                <td>Price1</td>
+                                <td>Price2</td>
+                                <td>Price3</td>
+                                <td>Price4</td>
+                                <td>Price5</td>
+                            </tr>
+                            {% for record in sellinforecords %}
+                            <tr>
+                                <td>{{ record.GoodsNUM }}</td>
+                                <td><input type="text" name="sellprice[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.GoodsName }}"></td>
+                                <td><input type="text" name="sellprice[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Price1 }}"></td>
+                                <td><input type="text" name="sellprice[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Price2 }}"></td>
+                                <td><input type="text" name="sellprice[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Price3 }}"></td>
+                                <td><input type="text" name="sellprice[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Price4 }}"></td>
+                                <td><input type="text" name="sellprice[{{ record.GoodsNUM }}][]" class="form-control" value="{{ record.Price5 }}"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <input class="btn btn-default" value="Update!" type="submit"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

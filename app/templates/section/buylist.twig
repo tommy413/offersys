@@ -21,11 +21,11 @@
                     {% for record in buyrecords %}
                         <tr>
                             <td>{{ record.ProductName }}</td>
-                            <td>{{ record.Price1 }}</td>
-                            <td>{{ record.Price2 }}</td>
-                            <td>{{ record.Price3 }}</td>
-                            <td>{{ record.Price4 }}</td>
-                            <td>{{ record.Price5 }}</td>
+                            <td>{% if record.Last==1 %}*{% endif %}{{ record.Price1 }}</td>
+                            <td>{% if record.Last==2 %}*{% endif %}{{ record.Price2 }}</td>
+                            <td>{% if record.Last==3 %}*{% endif %}{{ record.Price3 }}</td>
+                            <td>{% if record.Last==4 %}*{% endif %}{{ record.Price4 }}</td>
+                            <td>{% if record.Last==5 %}*{% endif %}{{ record.Price5 }}</td>
                             <td>{{ record.inventory }}</td>
                             <td>{{ record.ordered }}</td>
                             <td><input type="text" name="buy[]" class="form-control" placeholder="0"></td>
