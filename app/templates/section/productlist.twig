@@ -7,14 +7,10 @@
                 <thead align="center">
                     <tr>
                         <th>Name</th>
-                        <th>Material1</th>
-                        <th>Material2</th>
-                        <th>Material3</th>
-                        <th>Material4</th>
-                        <th>Material5</th>
-                        <th>Material6</th>
-                        <th>Material7</th>
-                        <th>Material8</th>
+                        {% for record in buyrecords %}
+                            <th>{{ record.ProductName }}</th>
+                        {% endfor %}
+                        
                         <th>Product Inventory</th>
                         <th>Ordered</th>
                         <th>New Order</th>
