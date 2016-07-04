@@ -94,20 +94,20 @@ final class BackAction extends BaseAction
 
         $idquery = $this->sql['default']->query("SELECT TeamNUM FROM team WHERE TeamName = '$deleteteam' ");
         if (!$idquery)return $response->withRedirect('/offersys/test/public/back');
-        else $idarr = $idquery -> fetch();
-        $deleteid = $idarr[0];
+        else {$idarr = $idquery -> fetch();
+        $deleteid = $idarr[0];}
 
-        $updatequery = $this->sql['default']->prepare("DELETE FROM team WHERE TeamName = '$deleteteam' ");
+        $updatequery = $this->sql['default']->prepare("DELETE FROM team WHERE TeamNUM = '$deleteid' ");
         $updatequery->execute();
-        $updatequery = $this->sql['default']->prepare("DELETE FROM teambuy WHERE TeamName = '$deleteteam' ");
+        $updatequery = $this->sql['default']->prepare("DELETE FROM teambuy WHERE TeamNUM = '$deleteid' ");
         $updatequery->execute();
-        $updatequery = $this->sql['default']->prepare("DELETE FROM teamsell WHERE TeamName = '$deleteteam' ");
+        $updatequery = $this->sql['default']->prepare("DELETE FROM teamsell WHERE TeamNUM = '$deleteid' ");
         $updatequery->execute();
-        $updatequery = $this->sql['default']->prepare("DELETE FROM buyorder WHERE TeamName = '$deleteteam' ");
+        $updatequery = $this->sql['default']->prepare("DELETE FROM buyorder WHERE TeamNUM = '$deleteid' ");
         $updatequery->execute();
-        $updatequery = $this->sql['default']->prepare("DELETE FROM produceorder WHERE TeamName = '$deleteteam' ");
+        $updatequery = $this->sql['default']->prepare("DELETE FROM produceorder WHERE TeamNUM = '$deleteid' ");
         $updatequery->execute();
-        $updatequery = $this->sql['default']->prepare("DELETE FROM sellorder WHERE TeamName = '$deleteteam' ");
+        $updatequery = $this->sql['default']->prepare("DELETE FROM sellorder WHERE TeamNUM = '$deleteid' ");
         $updatequery->execute();
 
         $teamquery= $this->sql['default']->prepare("SELECT MAX(TeamNUM) from team ");

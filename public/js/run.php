@@ -9,7 +9,7 @@
 		$dsn = "mysql:host=localhost;dbname=tommy";
 		$db = new PDO($dsn, 'tommy','');
 		$BuyInteval=12500;
-		$SellInterval=100;
+		$SellInteval=100;
 		$begin=time();
 
 		//loading data 
@@ -137,6 +137,15 @@
 			$pricequery -> execute();
 			$pricequery = $db -> prepare("UPDATE sellprice SET Last=$s WHERE GoodsNUM='$i' ");
 			$pricequery -> execute();
+
+
+			echo "sell: ";
+				print_r($sellcount[$i]);
+				
+				echo "intival:";
+				print_r($$SellInteval);
+				echo "<br>";
+			echo "<br>";
 		}
 
 		
@@ -162,15 +171,7 @@
 		echo ("<br>");
 
 		for ($i=1 ; $i<=$teamcount ; $i++){
-			print ($teamarr[$i]['TeamName']);
-			echo "sell: ";
-				print_r($sellorderarr[$i]);
-				echo " pro: ";
-				print_r($produceorderarr[$i]);
-				echo "buy:";
-				print_r($buyorderarr[$i]);
-				echo "<br>";
-			echo "<br>";
+			
 			//sell
 			$benefit=0;
 			for ($j=1; $j <= 8 ; $j++) { 
