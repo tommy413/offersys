@@ -122,7 +122,9 @@ final class HomeAction extends PermitAction
             'teaminforecords' => $teaminfoarr,
             'NowTime' => $nowtime,
             'RTime' => $rtime,
-            'NowState' => $state
+            'NowState' => $state,
+            'buyinterval' => 12500,
+            'sellinterval' => 100
         ];
 
         //$this->logger->info($begintime);
