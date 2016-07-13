@@ -23,7 +23,10 @@ final class LoginAction extends BaseAction
         
         $error = null;
 
-        $pdb = $this->sql['default']->query("SELECT TeamPassword FROM team WHERE TeamAccount='".$account."'");
+	//$account = mysqli_real_escape_string($account);
+        $pdb = $this->sql['default']->query("SELECT TeamPassword FROM team WHERE TeamAccount='$account'");
+        
+
         $ph = $pdb->fetch(\PDO::FETCH_ASSOC);
         if ($ph==false){
             $error="The account doesn't exist.";

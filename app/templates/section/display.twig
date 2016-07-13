@@ -13,11 +13,13 @@
                 </thead>
                 <tbody>
                     {% for record in teamstatus %}
+                        {% if record.TeamName != "test" %}
                         <tr>
                             <td>{{ record.TeamName }}</td>
                             <td>{{ record.MoneyCount }}</td>
                             <td>{{ record.Productivity }}</td>
                         </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
